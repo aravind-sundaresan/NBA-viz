@@ -4,46 +4,27 @@
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v4.js"></script>
 
-<!-- Create a div where the graph will take place -->
+<!-- Create a div where the graph will be displayed -->
 <div id="network"></div>
 
 <script>
 
-  // append the svg object to the body of the page
+  // append the svg object to the graph div
   var svg = d3.select("#network")
               .append("svg")
               .attr("width", 800)
               .attr("height", 800)
-    
-  var nodes = [
-    { "x_axis": 300, "y_axis": 250, "radius": 10, "color" : "#E67E22" },
-    { "x_axis": 150, "y_axis": 400, "radius": 10, "color" : "#E67E22"},
-    { "x_axis": 450, "y_axis": 400, "radius": 10, "color" : "#E67E22"},
-    { "x_axis": 200, "y_axis": 550, "radius": 10, "color" : "#E67E22"},
-    { "x_axis": 400, "y_axis": 550, "radius": 10, "color" : "#E67E22"}
-  ];
-
-  var circles = svg.selectAll("circle")
-                    .data(nodes)
-                    .enter()
-                    .append("circle");
-
-  var nodeAttributes = circles
-                         .attr("cx", function (d) { return d.x_axis; })
-                         .attr("cy", function (d) { return d.y_axis; })
-                         .attr("r", function (d) { return d.radius; })
-                         .style("fill", function(d) { return d.color; });
 
   var links = [
-    { "x1": 300, "y1": 250, "x2": 150, "y2" : 400, "thickness": 5 },
-    { "x1": 300, "y1": 250, "x2": 450, "y2" : 400, "thickness": 2 },
-    { "x1": 300, "y1": 250, "x2": 200, "y2" : 550, "thickness": 8 },
-    { "x1": 300, "y1": 250, "x2": 400, "y2" : 550, "thickness": 1 },
-    { "x1": 150, "y1": 400, "x2": 450, "y2" : 400, "thickness": 4 },
-    { "x1": 150, "y1": 400, "x2": 200, "y2" : 550, "thickness": 3 },
-    { "x1": 150, "y1": 400, "x2": 400, "y2" : 550, "thickness": 10 },
-    { "x1": 450, "y1": 400, "x2": 200, "y2" : 550, "thickness": 2 },
-    { "x1": 450, "y1": 400, "x2": 400, "y2" : 550, "thickness": 2 },
+    { "x1": 350, "y1": 225, "x2": 150, "y2" : 400, "thickness": 5 },
+    { "x1": 350, "y1": 225, "x2": 550, "y2" : 400, "thickness": 2 },
+    { "x1": 350, "y1": 225, "x2": 250, "y2" : 575, "thickness": 8 },
+    { "x1": 350, "y1": 225, "x2": 450, "y2" : 575, "thickness": 25 },
+    { "x1": 150, "y1": 400, "x2": 550, "y2" : 400, "thickness": 4 },
+    { "x1": 150, "y1": 400, "x2": 250, "y2" : 575, "thickness": 3 },
+    { "x1": 150, "y1": 400, "x2": 450, "y2" : 575, "thickness": 15 },
+    { "x1": 550, "y1": 400, "x2": 250, "y2" : 575, "thickness": 2 },
+    { "x1": 550, "y1": 400, "x2": 450, "y2" : 575, "thickness": 2 },
   ]
   var line = svg.selectAll("line")
                 .data(links)
@@ -55,6 +36,34 @@
                 .attr("x2", function(d) { return d.x2 } )
                 .attr("y2", function(d) { return d.y2 } )
                 .attr("stroke-width", function(d) {return d.thickness } );
+
+
+  var nodes = [
+    { "x_axis": 350, "y_axis": 225, "radius": 10, "color" : "#E67E22" },
+    { "x_axis": 150, "y_axis": 400, "radius": 10, "color" : "#E67E22"},
+    { "x_axis": 550, "y_axis": 400, "radius": 10, "color" : "#E67E22"},
+    { "x_axis": 250, "y_axis": 575, "radius": 10, "color" : "#E67E22"},
+    { "x_axis": 450, "y_axis": 575, "radius": 10, "color" : "#E67E22"}
+  ];
+
+  var circles = svg.selectAll("circle")
+                    .data(nodes)
+                    .enter()
+                    .append("circle");
+
+  var nodeAttributes = circles
+                         .attr("cx", function(d) { return d.x_axis; })
+                         .attr("cy", function(d) { return d.y_axis; })
+                         .attr("r", function(d) { return d.radius; })
+                         .style("fill", function(d) { return d.color; });
+
+  var nodeLabels = svg.selectAll("text")
+                        .data(nodes)
+                        .enter()
+                        .append("text")
+                        .attr("x", function(d) { return d.x_axis + 1; })
+                        .attr("y", function(d) { return d.y_axis + 1; })
+                        .text(function(d) { return d.color; })
 
 
 
